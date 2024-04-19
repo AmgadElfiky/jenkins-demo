@@ -1,1 +1,4 @@
-npm --version
+# npm --version
+
+#!bin/bash
+echo "amgad"
