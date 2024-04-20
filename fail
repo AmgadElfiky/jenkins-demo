@@ -7,10 +7,9 @@ pipeline {
                 branch 'master'
             }
             steps {
-                steps {
-                echo "checking your code"
+                echo "Checking your code"
                 echo "${params.namespace}"
-            	}
+                // Add more build steps as needed
             }
             post {
                 failure {
@@ -23,7 +22,7 @@ pipeline {
                 branch 'test'
             }
             steps {
-                sh 'exit 1'
+                // Add your build steps for the test branch
             }
             post {
                 failure {
