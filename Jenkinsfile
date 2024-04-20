@@ -2,7 +2,7 @@ pipeline {
      agent any
     parameters {
         booleanParam(name:'project', defaultValue: true, description:'this paramater help you to know project name')
-        choice(name: 'namespace', choices:['dev','prod','stage','test'], description: '' ) 
+        choice(name: 'namespace', choices:['dev','prod','stage'], description: '' ) 
     }
 
     stages {
@@ -31,12 +31,7 @@ pipeline {
                 echo "this build number $BUILD_NUMBER"
             }
         }
-        stage('test') {  
-            steps {
-                echo "this is environmet variable"
-                echo "this build evn name $BRANCH_NAME"
-            }
-        }
+        
     }
 
 }
