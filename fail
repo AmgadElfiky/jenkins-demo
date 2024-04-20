@@ -8,7 +8,6 @@ pipeline {
             }
             steps {
                 echo "Checking your code"
-                echo "${params.namespace}"
                 sh 'exit 1'
                 // Add more build steps as needed
             }
@@ -23,7 +22,8 @@ pipeline {
                 branch 'test'
             }
             steps {
-                
+                // Add your build steps for the test branch here
+                // Example: sh 'npm install && npm test'
             }
             post {
                 failure {
