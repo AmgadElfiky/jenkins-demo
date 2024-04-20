@@ -1,38 +1,34 @@
-pipeline {
-     agent any
+gent any
+
     parameters {
-        booleanParam(name:'project', defaultValue: true, description:'this paramater help you to know project name')
-        choice(name: 'namespace', choices:['dev','prod','stage'], description: '' ) 
+        string(name: 'TARGET', defaultValue: 'World')
+    }
+
+    environment {
+        GREETING = "Hello"
     }
 
     stages {
-        stage('check') {
+        stage('Greeting') {
             steps {
-                echo "checking your code"
-                echo "${params.namespace}"
-               
-            }
-        }
-
-        stage('test') {
-            when {
-                expression{
-                    params.project == true 
+                script {
+                    echo "${env.GREETING}, ${params.TARGET}!"
                 }
             }
+        }
+
+        stage('Fail Pipeline') {
             steps {
-                echo "testing your app" 
+              
+                sh 'exit 1'
             }
         }
-        
-        stage('deployment') {  
-            steps {
-                echo "your code is deployed right now"
-                echo "this build number $BUILD_NUMBER"
-            }
-        }
-        
     }
 
+    post {
+        failure {
+          
+              build job: "failure", wait: true
+        }
+    }
 }
-
