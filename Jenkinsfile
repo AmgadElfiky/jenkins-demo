@@ -14,7 +14,7 @@ pipeline {
             }
         }
 
-        stage('prod') {
+        stage('test') {
             when {
                 expression{
                     params.project == true 
