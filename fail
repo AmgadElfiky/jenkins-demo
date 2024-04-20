@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build Master') {
+            when {
+                branch 'master'
+            }
+            steps {
+                steps {
+                echo "checking your code"
+                echo "${params.namespace}"
+            	}
+            }
+            post {
+                failure {
+                    build job: 'failure', parameters: [string(name: 'BRANCH_NAME', value: 'master')]
+                }
+            }
+        }
+        stage('Build Test') {
+            when {
+                branch 'test'
+            }
+            steps {
+                sh 'exit 1'
+            }
+            post {
+                failure {
+                    build job: 'failure', parameters: [string(name: 'BRANCH_NAME', value: 'test')]
+                }
+            }
+        }
+        stage('Build Dev') {
+            when {
+                branch 'dev'
+            }
+            steps {
+                // Your build steps for the dev branch
+            }
+            post {
+                failure {
+                    build job: 'failure', parameters: [string(name: 'BRANCH_NAME', value: 'dev')]
+                }
+            }
+        }
+    }
+}
