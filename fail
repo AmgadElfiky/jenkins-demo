@@ -22,7 +22,7 @@ pipeline {
                 branch 'test'
             }
             steps {
-                // Add your build steps for the test branch
+                sh 'exit 1'
             }
             post {
                 failure {
