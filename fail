@@ -9,6 +9,7 @@ pipeline {
             steps {
                 echo "Checking your code"
                 echo "${params.namespace}"
+                sh 'exit 1'
                 // Add more build steps as needed
             }
             post {
@@ -22,7 +23,7 @@ pipeline {
                 branch 'test'
             }
             steps {
-                sh 'exit 1'
+                
             }
             post {
                 failure {
