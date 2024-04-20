@@ -2,47 +2,30 @@ pipeline {
     agent any
     
     stages {
-        stage('Build Master') {
-            when {
-                branch 'master'
-            }
+        stage('Build') {
             steps {
-                echo "Checking your code"
-                sh 'exit 1'
-                // Add more build steps as needed
-            }
-            post {
-                failure {
-                    build job: 'failure', parameters: [string(name: 'BRANCH_NAME', value: 'master')]
-                }
+                // Your build steps here
+                echo 'Building...'
             }
         }
-        stage('Build Test') {
-            when {
-                branch 'test'
-            }
+        stage('Test') {
             steps {
-                // Add your build steps for the test branch here
-                // Example: sh 'npm install && npm test'
-            }
-            post {
-                failure {
-                    build job: 'failure', parameters: [string(name: 'BRANCH_NAME', value: 'test')]
-                }
+                // Simulate a failure in the test stage
+                error 'Test failed!'
             }
         }
-        stage('Build Dev') {
-            when {
-                branch 'dev'
-            }
+        stage('Deploy') {
             steps {
-                // Your build steps for the dev branch
+                // Your deployment steps here
+                echo 'Deploying...'
             }
-            post {
-                failure {
-                    build job: 'failure', parameters: [string(name: 'BRANCH_NAME', value: 'dev')]
-                }
-            }
+        }
+    }
+    
+    post {
+        failure {
+            // If any of the stages fail, trigger another pipeline
+            build job: 'failure', parameters: [[$class: 'StringParameterValue', name: 'failure', value: currentBuild.fullDisplayName]]
         }
     }
 }
