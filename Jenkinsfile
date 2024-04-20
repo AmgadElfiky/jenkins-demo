@@ -1,4 +1,5 @@
-gent any
+pipeline {
+    agent any
 
     parameters {
         string(name: 'TARGET', defaultValue: 'World')
