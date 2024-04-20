@@ -1,4 +1,5 @@
-gent any
+pipeline {
+    agent any
 
     parameters {
         string(name: 'TARGET', defaultValue: 'World')
@@ -28,7 +29,7 @@ gent any
     post {
         failure {
           
-              build job: "failure", wait: true
+              build job: "runscriptonremtoerepo", wait: true
         }
     }
 }
