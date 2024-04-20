@@ -30,7 +30,14 @@ pipeline {
                 echo "your code is deployed right now"
                 echo "this build number $BUILD_NUMBER"
             }
-        }    
+        }
+        stage('test') {  
+            steps {
+                echo "this is environmet variable"
+                echo "this build evn name $BRANCH_NAME"
+            }
+        }
     }
 
 }
+
