@@ -1,14 +1,11 @@
 pipeline {
     agent any
-
     parameters {
         string(name: 'TARGET', defaultValue: 'World')
     }
-
     environment {
         GREETING = "Hello"
     }
-
     stages {
         stage('Greeting') {
             steps {
@@ -17,19 +14,15 @@ pipeline {
                 }
             }
         }
-
         stage('Fail Pipeline') {
             steps {
-              
                 sh 'exit 1'
             }
         }
     }
-
     post {
         failure {
-          
-              build job: "runscriptonremtoerepo", wait: true
+              build job: "failure", wait: true
         }
     }
 }
